@@ -20,9 +20,9 @@ form.addEventListener('input', e => {
 
 document.addEventListener('DOMContentLoaded', e => {
   const zip = localStorage.getItem('feedback-form-state');
-  const data = JSON.parse(zip);
-  form.elements.email.value = data.email;
-  form.elements.message.value = data.message;
+  const data = JSON.parse(zip) || {};
+  form.elements.email.value = data.email || '';
+  form.elements.message.value = data.message || '';
 });
 
 form.addEventListener('submit', e => {
