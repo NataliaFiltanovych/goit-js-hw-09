@@ -18,7 +18,7 @@ form.addEventListener('input', e => {
 
 document.addEventListener('DOMContentLoaded', e => {
   const zip = localStorage.getItem('feedback-form-state');
-  const data = JSON.parse(zip) || {};
+  const data = JSON.parse(zip) || formData;
   form.elements.email.value = data.email || '';
   form.elements.message.value = data.message || '';
   formData.email = data.email;
@@ -38,6 +38,7 @@ form.addEventListener('submit', e => {
     console.log(formData);
     localStorage.removeItem('feedback-form-state');
     form.reset();
-    formData = structuredClone(formData);
+    formData.email = '';
+    formData.message = '';
   }
 });
