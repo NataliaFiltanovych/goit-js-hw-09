@@ -1,4 +1,4 @@
-const formData = {
+let formData = {
   email: '',
   message: '',
 };
@@ -9,10 +9,8 @@ const data = form.querySelector('.form-input');
 form.addEventListener('input', e => {
   const formGet = new FormData(form);
 
-  const formData = {
-    email: formGet.get('email'),
-    message: formGet.get('message'),
-  };
+  formData.email = formGet.get('email');
+  formData.message = formGet.get('message');
 
   const zip = JSON.stringify(formData);
   localStorage.setItem('feedback-form-state', zip);
@@ -23,16 +21,16 @@ document.addEventListener('DOMContentLoaded', e => {
   const data = JSON.parse(zip) || {};
   form.elements.email.value = data.email || '';
   form.elements.message.value = data.message || '';
+  formData.email = data.email;
+  formData.message = data.message;
 });
 
 form.addEventListener('submit', e => {
   e.preventDefault();
   const formGet = new FormData(form);
 
-  const formData = {
-    email: formGet.get('email'),
-    message: formGet.get('message'),
-  };
+  formData.email = formGet.get('email');
+  formData.message = formGet.get('message');
 
   if (form.elements.email.value === '' || form.elements.message.value === '') {
     alert('Fill please all fields');
@@ -40,5 +38,6 @@ form.addEventListener('submit', e => {
     console.log(formData);
     localStorage.removeItem('feedback-form-state');
     form.reset();
+    formData = structuredClone(formData);
   }
 });
